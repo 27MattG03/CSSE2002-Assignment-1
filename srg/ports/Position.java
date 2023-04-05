@@ -4,9 +4,9 @@ import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 
 public class Position extends Object {
-    final int x;
-    final int y;
-    final int z;
+    public final int x;
+    public final int y;
+    public final int z;
 
     public Position(int x, int y, int z) {
         this.x = x;
