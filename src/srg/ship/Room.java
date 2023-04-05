@@ -7,7 +7,7 @@ public class Room extends Object implements Damageable {
     private int damageRate;
     private int health;
     private int maxHealth;
-    private RoomTier tier;
+    protected RoomTier tier;
     private String name;
     public Room() {
         this(RoomTier.BASIC);
@@ -59,5 +59,18 @@ public class Room extends Object implements Damageable {
     public List<String> getActions() {
         List<String> actions =  new ArrayList<>();
         return actions;
+    }
+    public void upgrade(){
+        switch(this.tier){
+            case BASIC :
+                this.tier = RoomTier.AVERAGE;
+                break;
+            case AVERAGE:
+                this.tier = RoomTier.PRIME;
+                break;
+            case PRIME:
+                resetHealth();
+                break;
+        }
     }
 }

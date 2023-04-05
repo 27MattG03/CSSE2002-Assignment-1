@@ -7,9 +7,13 @@ import src.srg.exceptions.InsufficientCapcaityException;
 import src.srg.exceptions.InsufficientResourcesException;
 import src.srg.exceptions.NoPathException;
 import src.srg.resources.FuelContainer;
+import src.srg.resources.FuelGrade;
 import src.srg.resources.ResourceContainer;
 import src.srg.resources.ResourceType;
 import src.srg.ports.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents a spaceship, which has a unique name, a unique ID, a registered owner, a CargoHold and a NavigationRoom.
@@ -17,8 +21,32 @@ import src.srg.ports.*;
  * @ass1
  */
 public class Ship {
+    private String name;
+    private String owner;
+    private String id;
+    private CargoHold cargoHold;
+    private NavigationRoom navigationRoom;
+
+    public Ship(String name,
+                String owner,
+                String id,
+                RoomTier cargoHoldTier,
+                RoomTier navigationRoomTier,
+                List<SpacePort> galaxyMap) {
+        this.name = name;
+        this.owner = owner;
+        this.id = id;
+        this.cargoHold = new CargoHold(cargoHoldTier);
+        this.navigationRoom = new NavigationRoom(navigationRoomTier,galaxyMap);
+        try {
+            cargoHold.storeResource(new ResourceContainer(ResourceType.REPAIR_KIT, 5));
+            cargoHold.storeResource(new FuelContainer(FuelGrade.TRITIUM,100));
+            cargoHold.storeResource(new FuelContainer(FuelGrade.HYPERDRIVE_CORE,5));
+        } catch (InsufficientCapcaityException | IllegalArgumentException error){
+        }
 
 
+    }
     /**
      * This method is provided as it interfaces with the command line interface.
      *
@@ -97,5 +125,21 @@ public class Ship {
 
         }
 
+    }
+    public Room getRoomByName(String name)
+            throws IllegalArgumentException{
+        switch (name) {
+            case "NavigationRoom":
+                return this.navigationRoom;
+
+            case "CargoHold":
+                return this.cargoHold;
+            default:
+                throw new IllegalArgumentException();
+        }
+    }
+    public List<String> getActions(){
+        List<String> actions = new ArrayList<String>();
+        return actions;
     }
 }

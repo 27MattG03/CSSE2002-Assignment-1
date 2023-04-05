@@ -5,12 +5,8 @@ public class ResourceContainer extends Object{
     private int amount;
     private ResourceType type;
     public ResourceContainer(ResourceType type, int amount) {
-        if (amount <= MAXIMUM_CAPACITY) {
-            this.amount = amount;
-        } else {
-            throw new IllegalArgumentException();
-        }
-        if (type == ResourceType.FUEL) {
+        this.amount = amount;
+        if (!canStore(type)) {
             throw new IllegalArgumentException();
         } else {
             this.type = type;
@@ -18,16 +14,32 @@ public class ResourceContainer extends Object{
 
 
     }
+
+
+
     public boolean canStore(ResourceType type) {
         if (type == ResourceType.FUEL) {
             return false;
-        }
-        else {
+        } else {
             return true;
         }
 
     }
     public int getAmount() {
         return this.amount;
+    }
+    public void setAmount(int amount){
+        this.amount = amount;
+    }
+    public ResourceType getType() {
+        return this.type;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s: %i",this.type.toString(), this.amount);
+    }
+    public String getShortName(){
+        return this.type.toString();
     }
 }

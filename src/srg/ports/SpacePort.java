@@ -26,4 +26,8 @@ public class SpacePort extends Object {
         List<String> actions = new ArrayList<String>();
         return actions;
     }
+    public Position getPosition(){
+        return this.position;
+    }
 }
+
