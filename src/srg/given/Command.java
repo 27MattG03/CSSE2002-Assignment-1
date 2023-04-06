@@ -6,5 +6,4 @@ public class Command {
     public Command(CommandType type) {
         this.type = type;
     }
-
 }
